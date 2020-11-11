@@ -11,6 +11,9 @@
 .sts4-cache
 .gradle/
 
+### Visual Studio Code ###
+.vscode
+
 ### IntelliJ IDEA ###
 .idea
 *.iws
