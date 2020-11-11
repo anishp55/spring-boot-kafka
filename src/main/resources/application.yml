@@ -1,6 +1,11 @@
 server:
   port: 8081
 spring:
+  security:
+    user:
+      name: testadmin
+      password: KeepItSimple123
+      manager:
   kafka:
     consumer:
       bootstrap-servers: 172.16.1.2:9093
