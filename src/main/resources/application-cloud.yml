@@ -1,0 +1,34 @@
+server:
+  port: 8081
+spring:
+  kafka:
+    consumer:
+      bootstrap-servers: 10.1.1.5:9093
+      group-id: group_id
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      ssl.truststore.location: /home/vcap/certs/client.truststore
+      ssl.truststore.password: 123456
+      ssl.keystore.location: /home/vcap/certs/ssldemo.keystore
+      ssl.keystore.password: 123456
+      ssl.key.password: 123456
+      ssl.enabled.protocols: TLSv1.2
+      ssl.truststore.type: JKS
+      ssl.keystore.type: JKS
+      ssl.certificate.verification: false
+      ssl.endpoint.identification.algorithm:
+    producer:
+      bootstrap-servers: 10.1.1.5:9093
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+      ssl.truststore.location: /home/vcap/app/certs/client.truststore
+      ssl.truststore.password: 123456
+      ssl.keystore.location: /home/vcap/app/certs/ssldemo.keystore
+      ssl.keystore.password: 123456
+      ssl.key.password: 123456
+      ssl.enabled.protocols: TLSv1.2
+      ssl.truststore.type: JKS
+      ssl.keystore.type: JKS
+      ssl.certificate.verification: false
+      ssl.endpoint.identification.algorithm: 

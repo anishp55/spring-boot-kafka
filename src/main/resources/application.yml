@@ -1,14 +1,34 @@
 server:
-  port: 9000
+  port: 8081
 spring:
   kafka:
     consumer:
-      bootstrap-servers: localhost:9092
+      bootstrap-servers: 172.16.1.2:9093
       group-id: group_id
       auto-offset-reset: earliest
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      ssl.truststore.location: ./BOOT-INF/client.truststore
+      ssl.truststore.password: 123456
+      ssl.keystore.location: ./BOOT-INF/ssldemo.keystore
+      ssl.keystore.password: 123456
+      ssl.key.password: 123456
+      ssl.enabled.protocols: TLSv1.2
+      ssl.truststore.type: JKS
+      ssl.keystore.type: JKS
+      ssl.certificate.verification: false
+      ssl.endpoint.identification.algorithm:
     producer:
-      bootstrap-servers: localhost:9092
+      bootstrap-servers: 172.16.1.2:9093
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.apache.kafka.common.serialization.StringSerializer
+      ssl.truststore.location: ./BOOT-INF/client.truststore
+      ssl.truststore.password: 123456
+      ssl.keystore.location: ./BOOT-INF/ssldemo.keystore
+      ssl.keystore.password: 123456
+      ssl.key.password: 123456
+      ssl.enabled.protocols: TLSv1.2
+      ssl.truststore.type: JKS
+      ssl.keystore.type: JKS
+      ssl.certificate.verification: false
+      ssl.endpoint.identification.algorithm: 
