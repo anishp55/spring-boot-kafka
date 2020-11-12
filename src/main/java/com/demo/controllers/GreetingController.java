@@ -55,19 +55,18 @@ public class GreetingController {
                                            keystores.get(System.getenv("KAFKA_CLIENTSTORE")).toString()
 									);
 		store = new File("./clientstore.jks");
+		KeyStore clientStore;
 		try {
-		// OutputStream os = new FileOutputStream(store);
-		// os.write(decoded_jksstore);
-		// os.close();
-		KeyStore clientStore = KeyStore.getInstance("PKCS12");
+		clientStore = KeyStore.getInstance("PKCS12");
 		InputStream clientStoreStream = new ByteArrayInputStream(decoded_jksstore);
 		clientStore.load(clientStoreStream,password);
+		System.out.println(clientStore.getCertificate("ca"));
 		} catch (Exception e) {
 			System.out.println("RutRoh: " + e);
 		}
 
 		System.out.println("===========================================");
-		return '{"msg" : "keystore extraction completed"}';
+		return "{msg : keystore extraction completed}";
 
 	}
 }
