@@ -22,6 +22,14 @@ applications:
   env:
     JBP_CONFIG_OPEN_JDK_JRE: '{ jre: { version: 11.+ } }'
     JAVA_OPTS: '-XX:MaxDirectMemorySize=512M -Dlogging.level.org.springframework=TRACE'
+    JBP_CONFIG_SPRING_AUTO_RECONFIGURATION: '{enabled: false}'
+    SPRING_PROFILES_ACTIVE: cloud
+    CREDHUB: "scdf-credhub"
+    KAFKA_TRUSTSTORE: "truststore"
+    KAFKA_CLIENTSTORE: "keystore"
+
+
   services:
     - scdf-credhub
+    - scdf-config-server
     

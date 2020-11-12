@@ -20,3 +20,4 @@ applications:
   - https://github.com/cloudfoundry/java-buildpack.git
   env:
     JBP_CONFIG_OPEN_JDK_JRE: '{ jre: { version: 11.+ } }'
+    SPRING_PROFILE_ACTIVE: time
