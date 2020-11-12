@@ -10,7 +10,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.pivotal.cfenv.core.CfEnv;
-import io.pivotal.cfenv.core.CfService;
+import io.pivotal.cfenv.core.CfCredentials;
+
 
 @RestController
 public class GreetingController {
@@ -22,31 +23,14 @@ public class GreetingController {
 	public String greeting(@RequestParam(value = "name", defaultValue = "World") String name) {		
 		System.out.println("===========================================");
 		CfEnv cfEnv = new CfEnv();
-		CfService kafka_credhub = cfEnv.findServiceByName(System.getenv("CREDHUB"));
-		System.out.println("keystore from credhub: " + kafka_credhub.getMap()) ;
-		// add code to pull data from our credhub service instance
-		String vcapServices = System.getenv("VCAP_SERVICES");
-		JsonParser springParser = JsonParserFactory.getJsonParser();
-		Map<String, Object> map = springParser.parseMap(vcapServices);
-		
-		
-
-		String mapArray[] = new String[map.size()];
-		System.out.println("Items found: " + mapArray.length);
-
-		int i = 0;
-		for (Map.Entry<String, Object> entry : map.entrySet()) {
-			System.out.println("FOUND KEY: " + entry.getKey() + " = " + entry.getValue());
-			i++;
-		}
+		CfCredentials kafka_jks = cfEnv.findCredentialsByName(System.getenv("CREDHUB"));
+		Map <String, Object> keystores2 = kafka_jks.getMap();
 
 
-		System.out.println("AKP " + map.get("credhub"));
-		// System.out.println("AKP " + map );
-		System.out.println("AKP " + System.getenv("KAFKA_TRUSTSTORE"));
-		System.out.println("AKP " + System.getenv("KAFKA_CLIENTSTORE"));
+		System.out.println("AKP KAFKA_TRUSTSTORE: " + keystores2.get(System.getenv("KAFKA_TRUSTSTORE")));
+		System.out.println("AKP KAFKA_CLIENTSTORE: " + keystores2.get(System.getenv("KAFKA_CLIENTSTORE")));
 		System.out.println("===========================================");
-		return System.getenv("VCAP_SERVICES");
+		return keystores2.get(System.getenv("KAFKA_TRUSTSTORE")).toString();
 
 	}
 }
