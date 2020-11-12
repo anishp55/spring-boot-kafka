@@ -8,9 +8,9 @@ import org.springframework.boot.json.JsonParserFactory;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.core.env.Environment;
 
-import io.pivotal.cfenv.core.*;
+import io.pivotal.cfenv.core.CfEnv;
+import io.pivotal.cfenv.core.CfService;
 
 @RestController
 public class GreetingController {
@@ -23,7 +23,7 @@ public class GreetingController {
 		System.out.println("===========================================");
 		CfEnv cfEnv = new CfEnv();
 		CfService kafka_credhub = cfEnv.findServiceByName(System.getenv("CREDHUB"));
-		System.out.println("keystore from credhub: " + kafka_credhub.getenv("FROM HERE") ) ;
+		System.out.println("keystore from credhub: " + kafka_credhub.getMap()) ;
 		// add code to pull data from our credhub service instance
 		String vcapServices = System.getenv("VCAP_SERVICES");
 		JsonParser springParser = JsonParserFactory.getJsonParser();
