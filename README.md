@@ -1,0 +1,1 @@
+a small example on how to dynamically select a credhub service instances and java keystores from selected credhub.  look at GreetingController.java
