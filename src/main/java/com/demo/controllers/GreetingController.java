@@ -38,12 +38,10 @@ public class GreetingController {
 									);
 		File store = new File("./truststore.jks");
 		try {
-		OutputStream os = new FileOutputStream(store);
-		os.write(decoded_jksstore);
-		os.close();
 		KeyStore trustStore = KeyStore.getInstance("PKCS12");
 		InputStream trustStoreStream = new ByteArrayInputStream(decoded_jksstore);
 		trustStore.load(trustStoreStream,password);
+		System.out.println(trustStore.getCertificate("ca"));
 		} catch (Exception e) {
 			System.out.println("RutRoh: " + e);
 		}

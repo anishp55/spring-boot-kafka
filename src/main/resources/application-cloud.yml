@@ -13,14 +13,14 @@ spring:
       auto-offset-reset: earliest
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-      ssl.truststore.location: /home/vcap/certs/client.truststore
+      ssl.truststore.location: /home/vcap/app/certs/client.truststore
       ssl.truststore.password: 123456
-      ssl.keystore.location: /home/vcap/certs/ssldemo.keystore
+      ssl.keystore.location: /home/vcap/app/certs/ssldemo.keystore
       ssl.keystore.password: 123456
       ssl.key.password: 123456
       ssl.enabled.protocols: TLSv1.2
-      ssl.truststore.type: JKS
-      ssl.keystore.type: JKS
+      ssl.truststore.type: PKCS12
+      ssl.keystore.type: PKCS12
       ssl.certificate.verification: false
       ssl.endpoint.identification.algorithm:
     producer:
@@ -33,7 +33,7 @@ spring:
       ssl.keystore.password: 123456
       ssl.key.password: 123456
       ssl.enabled.protocols: TLSv1.2
-      ssl.truststore.type: JKS
-      ssl.keystore.type: JKS
+      ssl.truststore.type: PKCS12
+      ssl.keystore.type: PKCS12
       ssl.certificate.verification: false
       ssl.endpoint.identification.algorithm: 

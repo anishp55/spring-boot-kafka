@@ -7,7 +7,7 @@ plugins {
 group = 'com.demo.kafka'
 version = '0.0.1-SNAPSHOT'
 description = 'spring-boot-with-kafka'
-sourceCompatibility = '11'
+sourceCompatibility = '1.8'
 
 repositories {
     maven {
@@ -40,7 +40,7 @@ dependencyManagement {
 
 bootJar {
     from('cert') {
-        into 'BOOT-INF'
+        into 'certs'
     }
     from('.profile'){
         into '.'
