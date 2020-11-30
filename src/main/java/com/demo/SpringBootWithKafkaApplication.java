@@ -12,6 +12,7 @@ import java.util.Map;
 import io.pivotal.cfenv.core.CfEnv;
 import io.pivotal.cfenv.core.CfCredentials;
 
+import io.pivotal.cfenv.core.CfService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -21,8 +22,7 @@ public class SpringBootWithKafkaApplication {
 	public static void main(String[] args) {
 		System.out.println("===========================================");
 		// find the credhub we should be using
-		CfEnv cfEnv = new CfEnv();
-		CfCredentials kafka_jks = cfEnv.clea(System.getenv("CREDHUB"));
+		final CfCredentials kafka_jks = getCredentials();
 		Map <String, Object> keystores = kafka_jks.getMap();
 
 		char[] password = {'1','2','3','4','5','6'};
@@ -63,5 +63,17 @@ public class SpringBootWithKafkaApplication {
 
 		System.out.println("===========================================");
 		SpringApplication.run(SpringBootWithKafkaApplication.class, args);
+	}
+
+	private static CfCredentials getCredentials() {
+		final CfEnv cfEnv = new CfEnv();
+		final String env = System.getenv("CREDHUB");
+		if (env != null && !env.isEmpty()) {
+			return cfEnv.findCredentialsByName(System.getenv("CREDHUB"));
+		}
+		return cfEnv.findServicesByTag("credhub").stream()
+			.findFirst()
+			.map(CfService::getCredentials)
+			.orElseThrow(() -> new RuntimeException("Must specify a CREDHUB env var or have a Cloud Connector"));
 	}
 }
