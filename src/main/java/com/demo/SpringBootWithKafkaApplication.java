@@ -20,48 +20,48 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class SpringBootWithKafkaApplication {
 
 	public static void main(String[] args) {
-		System.out.println("===========================================");
-		// find the credhub we should be using
-		final CfCredentials kafka_jks = getCredentials();
-		Map <String, Object> keystores = kafka_jks.getMap();
-
-		char[] password = {'1','2','3','4','5','6'};
-
-		//extract the jks and write to disk, and load into a keyStore
-		byte[] decoded_jksstore = Base64.getDecoder().decode(
-			                                      keystores.get(System.getenv("KAFKA_CLIENTSTORE")).toString()
-									);
-		File store = new File("../truststore.jks");
-		try {
-		OutputStream os = new FileOutputStream(store);
-		os.write(decoded_jksstore);
-		os.close();
-		KeyStore trustStore = KeyStore.getInstance("PKCS12");
-		InputStream trustStoreStream = new ByteArrayInputStream(decoded_jksstore);
-		trustStore.load(trustStoreStream,password);
-		System.out.println(trustStore.getCertificate("ca"));
-		} catch (Exception e) {
-			System.out.println("RutRoh: " + e);
-		}
-
-
-
-		//extract the second and write to disk, and load into a keyStore
-		decoded_jksstore = Base64.getDecoder().decode(
-                                           keystores.get(System.getenv("KAFKA_CLIENTSTORE")).toString()
-									);
-		// store = new File("../clientstore.jks");
-		KeyStore clientStore;
-		try {
-		clientStore = KeyStore.getInstance("PKCS12");
-		InputStream clientStoreStream = new ByteArrayInputStream(decoded_jksstore);
-		clientStore.load(clientStoreStream,password);
-		System.out.println(clientStore.getCertificate("ca"));
-		} catch (Exception e) {
-			System.out.println("RutRoh: " + e);
-		}
-
-		System.out.println("===========================================");
+//		System.out.println("===========================================");
+//		// find the credhub we should be using
+//		final CfCredentials kafka_jks = getCredentials();
+//		Map <String, Object> keystores = kafka_jks.getMap();
+//
+//		char[] password = {'1','2','3','4','5','6'};
+//
+//		//extract the jks and write to disk, and load into a keyStore
+//		byte[] decoded_jksstore = Base64.getDecoder().decode(
+//			                                      keystores.get(System.getenv("KAFKA_CLIENTSTORE")).toString()
+//									);
+//		File store = new File("../truststore.jks");
+//		try {
+//		OutputStream os = new FileOutputStream(store);
+//		os.write(decoded_jksstore);
+//		os.close();
+//		KeyStore trustStore = KeyStore.getInstance("PKCS12");
+//		InputStream trustStoreStream = new ByteArrayInputStream(decoded_jksstore);
+//		trustStore.load(trustStoreStream,password);
+//		System.out.println(trustStore.getCertificate("ca"));
+//		} catch (Exception e) {
+//			System.out.println("RutRoh: " + e);
+//		}
+//
+//
+//
+//		//extract the second and write to disk, and load into a keyStore
+//		decoded_jksstore = Base64.getDecoder().decode(
+//                                           keystores.get(System.getenv("KAFKA_CLIENTSTORE")).toString()
+//									);
+//		// store = new File("../clientstore.jks");
+//		KeyStore clientStore;
+//		try {
+//		clientStore = KeyStore.getInstance("PKCS12");
+//		InputStream clientStoreStream = new ByteArrayInputStream(decoded_jksstore);
+//		clientStore.load(clientStoreStream,password);
+//		System.out.println(clientStore.getCertificate("ca"));
+//		} catch (Exception e) {
+//			System.out.println("RutRoh: " + e);
+//		}
+//
+//		System.out.println("===========================================");
 		SpringApplication.run(SpringBootWithKafkaApplication.class, args);
 	}
 

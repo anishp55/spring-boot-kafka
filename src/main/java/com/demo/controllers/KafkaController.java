@@ -1,7 +1,9 @@
 package com.demo.controllers;
 
+import com.demo.engine.ChatMessage;
 import com.demo.engine.Producer;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,6 +22,11 @@ public class KafkaController {
 
     @PostMapping(value = "/publish")
     public void sendMessageToKafkaTopic(@RequestParam("message") String message) {
-        this.producer.sendMessage(message);
+        this.producer.getSource().output()
+            .send(MessageBuilder
+                    .withPayload(new ChatMessage(System.currentTimeMillis(), message))
+                    .setHeader("type", "chat")
+                    .build()
+            );
     }
 }
