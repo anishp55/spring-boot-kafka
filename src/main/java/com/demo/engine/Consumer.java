@@ -21,11 +21,11 @@ public class Consumer {
 
     private final Logger logger = LoggerFactory.getLogger(Producer.class);
 
-    @StreamListener(target = Sink.INPUT)
-    public void consume(String message) {
-
-        logger.info("recieved a string message : " + message);
-    }
+//    @StreamListener(target = Sink.INPUT)
+//    public void consume(String message) {
+//
+//        logger.info("received a string message : " + message);
+//    }
 
     @StreamListener(target = Sink.INPUT, condition = "headers['type']=='chat'")
     public void handle(@Payload ChatMessage message) {
@@ -33,7 +33,7 @@ public class Consumer {
         final DateTimeFormatter df = DateTimeFormatter.ofLocalizedTime(FormatStyle.MEDIUM)
                 .withZone(ZoneId.systemDefault());
         final String time = df.format(Instant.ofEpochMilli(message.getTime()));
-        logger.info("recieved a complex message : [{}]: {}", time, message.getContents());
+        logger.info("received a complex message : [{}]: {}", time, message.getContents());
     }
 
 //

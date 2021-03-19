@@ -14,8 +14,15 @@
 
 ---
 applications:
-- name: kafka-ssl-testing
-  path: build/libs/spring-boot-with-kafka-0.0.1-SNAPSHOT.jar
+- name: mccaskill
   buildpacks:
-  - staticfile_buildpack 
-  memory: 128M
+  - java_buildpack_offline
+  memory: 1G
+  instances: 1
+  env:
+    CREDHUB_NAME: mccaskill
+    CREDHUB_KEYSTORE: keystore1
+    CREDHUB_TRUSTSTORE: truststore1
+    JBP_CONFIG_OPEN_JDK_JRE: '{ jre: { version: 11.+ } }'
+    JBP_CONFIG_SPRING_AUTO_RECONFIGURATION: '{enabled: false}'
+    SPRING_PROFILES_ACTIVE: cloud
