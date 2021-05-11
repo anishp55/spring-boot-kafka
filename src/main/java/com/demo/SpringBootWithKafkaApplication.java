@@ -1,8 +1,8 @@
 package com.demo;
 
-import com.mmccaskill.KeyStoreUtils;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import sh.buildit.credhub.KeyStoreUtils;
 
 @SpringBootApplication
 public class SpringBootWithKafkaApplication {
