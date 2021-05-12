@@ -25,19 +25,3 @@ spring:
           destination: test
           group: output-group-1
           content-type: application/json
-
-  kafka:
-    properties:
-      ssl.endpoint.identification.algorithm:
-      security.protocol: SSL
-
-    ssl:
-      protocol: SSL
-
-      trust-store-location: file://${vcap.services.mccaskill.credentials.truststore1-path}
-      trust-store-password: ${vcap.services.mccaskill.credentials.truststore1-password}
-      trust-store-type: ${vcap.services.mccaskill.credentials.truststore1-type}
-
-      key-store-location: file://${vcap.services.mccaskill.credentials.keystore1-path}
-      key-store-password: ${vcap.services.mccaskill.credentials.keystore1-password}
-      key-store-type: ${vcap.services.mccaskill.credentials.keystore1-type}
